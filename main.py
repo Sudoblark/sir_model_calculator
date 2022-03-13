@@ -17,6 +17,7 @@
 """
 import argparse
 import ArgparserHelp
+from SIRModel import SIRModel
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -29,3 +30,7 @@ if __name__ == '__main__':
         print(ArgparserHelp.return_license())
         exit(0)
 
+    test_model = SIRModel(150, 4, 60, 0.43, 0.18)
+    print(test_model.getModelConfiguration())
+    test_model.runSimulation()
+    print(test_model)
