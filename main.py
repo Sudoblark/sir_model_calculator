@@ -18,19 +18,35 @@
 import argparse
 import ArgparserHelp
 from SIRModel import SIRModel
+from OutputEnum import OutputEnum
+import TerminalOutput
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print(ArgparserHelp.return_header())
     parser = argparse.ArgumentParser()
+
+    parser.add_argument("output", type=OutputEnum, choices=list(OutputEnum), help="Select output type")
+    parser.add_argument("population", type=int, help="Size of closed population")
+    parser.add_argument("initialInfection", type=int, help="Infected individuals on day 0")
+    parser.add_argument("days", type=int, help="Number of days our simulation should model")
+    parser.add_argument("transmissionRate", type=float, help="How infectious infected individuals are")
+    parser.add_argument("recoveryRate", type=float, help="How quickly individuals move into recovered state")
+
     parser.add_argument("-l", action="store_true", help="Show licensing information")
+    parser.add_argument("-csvFile", help="Full path to CSV file to output to")
 
     args = parser.parse_args()
     if args.l:
         print(ArgparserHelp.return_license())
         exit(0)
 
-    test_model = SIRModel(150, 4, 60, 0.43, 0.18)
-    print(test_model.getModelConfiguration())
-    test_model.runSimulation()
-    print(test_model)
+    sirModel = SIRModel(args.population, args.initialInfection, args.days, args.transmissionRate, args.recoveryRate)
+
+    if args.output is OutputEnum.csv:
+        pass
+    elif args.output is OutputEnum.matplotlib:
+        pass
+    elif args.output is OutputEnum.terminal:
+        TerminalOutput.outputHeader()
+        sirModel.runSimulation(TerminalOutput.outputData)
