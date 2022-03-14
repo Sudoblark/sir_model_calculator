@@ -20,6 +20,7 @@ import ArgparserHelp
 from SIRModel import SIRModel
 from OutputEnum import OutputEnum
 import TerminalOutput
+from CsvOutput import CsvOutput
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     parser.add_argument("recoveryRate", type=float, help="How quickly individuals move into recovered state")
 
     parser.add_argument("-l", action="store_true", help="Show licensing information")
-    parser.add_argument("-csvFile", help="Full path to CSV file to output to")
+    parser.add_argument("--csvFile", help="Full path to CSV file to output to")
 
     args = parser.parse_args()
     if args.l:
@@ -44,7 +45,13 @@ if __name__ == '__main__':
     sirModel = SIRModel(args.population, args.initialInfection, args.days, args.transmissionRate, args.recoveryRate)
 
     if args.output is OutputEnum.csv:
-        pass
+        csvHandler = CsvOutput(args.csvFile)
+        csvHandler.openHandler()
+        csvHandler.writeHeader()
+        sirModel.runSimulation(csvHandler.write)
+        csvHandler.closeHandler()
+
+
     elif args.output is OutputEnum.matplotlib:
         pass
     elif args.output is OutputEnum.terminal:

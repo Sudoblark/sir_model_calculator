@@ -15,8 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-
-
 class CsvOutput:
 
     def __init__(self, csvPath: str):
@@ -30,5 +28,10 @@ class CsvOutput:
         if self.__csvHandler is not None:
             self.__csvHandler.close()
 
-    def write(self, line: str):
-        self.__csvHandler.write(line)
+    def write(self, sirData: list):
+        lineData = ', '.join(str(data) for data in sirData)
+        lineData += "\n"
+        self.__csvHandler.write(lineData)
+
+    def writeHeader(self):
+        self.__csvHandler.write("Day, Susceptible, Infected, Recovered\n")
