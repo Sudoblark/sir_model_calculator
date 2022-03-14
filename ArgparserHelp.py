@@ -18,7 +18,11 @@
 import os
 
 
-def return_header():
+def return_header() -> str:
+    """
+    Returns header for the entire program
+    :return: String whose value is intended CLI header of program
+    """
     top_line = "SIR Model Animation Copyright (C) 2022 Sudoblark"
     header_string = "-" * len(top_line) + os.linesep
     header_string += top_line + os.linesep
@@ -28,6 +32,10 @@ def return_header():
 
 
 def return_license():
+    """
+    Returns license for the entire program
+    :return: String whose value is intended licensing information for program
+    """
     license_string = "Program to model an epidemic outbreak, using a basic SIR Model, then visualise in matplotlib" + \
                      os.linesep
     license_string += "Copyright (C) 2022 Sudoblark" + os.linesep + os.linesep

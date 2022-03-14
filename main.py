@@ -21,6 +21,7 @@ from SIRModel import SIRModel
 from OutputEnum import OutputEnum
 import TerminalOutput
 from CsvOutput import CsvOutput
+from MatplotlibOutput import MatplotlibOutput
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -50,10 +51,11 @@ if __name__ == '__main__':
         csvHandler.writeHeader()
         sirModel.runSimulation(csvHandler.write)
         csvHandler.closeHandler()
-
-
     elif args.output is OutputEnum.matplotlib:
-        pass
+        MatplotlibHandler = MatplotlibOutput()
+        sirModel.runSimulation(MatplotlibHandler.updateValues)
+        MatplotlibHandler.addModelConfigurationValues(sirModel.getModelConfiguration())
+        MatplotlibHandler.showGraph()
     elif args.output is OutputEnum.terminal:
         TerminalOutput.outputHeader()
         sirModel.runSimulation(TerminalOutput.outputData)

@@ -23,10 +23,6 @@ class SIRModel:
     A class to represent a basic SIR model to simulate susceptible (S), infected (I)
     and recovered (R) individuals within a closed population
 
-    Public Fields
-    ----
-    na
-
     Public Methods
     ----
     runSimulation(callbackFunction)
