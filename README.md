@@ -118,10 +118,10 @@ The steps below detail how to get a local version up the program up and running.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Now your virtual environment is setup, run help to determine what options are available:
+Now your virtual environment is setup, change to the src directory and run help to determine what options are available:
 
 ```
-(venv) C:\temp\SIR_Model_Animation>python -m main -h
+(venv) C:\temp\SIR_Model_Animation\src>python -m main -h
 ------------------------------------------------
 SIR Model Animation Copyright (C) 2022 Sudoblark
 Run 'main -h' for more information
@@ -149,7 +149,7 @@ optional arguments:
 For example, running the below will output a line graph showing SIR data:
 
 ```
-(venv) C:\temp\SIR_Model_Animation>python -m main matplotlib 150 4 60 0.12 0.18
+(venv) C:\temp\SIR_Model_Animation\src>python -m main matplotlib 150 4 60 0.12 0.18
 ```
 ![Example SIR data](images/example_data.png "Example SIR data")
 
