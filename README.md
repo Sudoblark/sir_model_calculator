@@ -52,16 +52,17 @@ This project aims to use the [SIR Model](https://en.wikipedia.org/wiki/Compartme
 an epidemic outbreak in a closed population. This was originally a coursework question for my [Degree](https://www.open.ac.uk/courses/computing-it/degrees/bsc-computing-it-software-q62-soft)
 which I found particularly intriguing, so I figured I'd redo my answer in Python and add some nifty data visualisation to boot.
 
+Note that instructions in the readme are for setting up a local development environment, whereas releases will contain 
+instructions on how to utilise outside of a local development environment.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 ### Built With
-TODO
-* [TBC](TBC Link)
+* [matplotlib](https://matplotlib.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
@@ -71,11 +72,44 @@ The steps below detail how to get a local version up the program up and running.
 
 ### Prerequisites
 
-TODO LIST HOW TO INSTALL PYTHON AND OTHER HIGH LEVEL PREREQS
+* Windows
+  * [Python 3](https://www.python.org/downloads/windows/)
+* Linux
+  * [Python 3](https://docs.python-guide.org/starting/install3/linux/)
 
 ### Installation
 
-TODO LIST INSTALLING LIBRARIES ETC BUT DON'T SHOW EXECUTION
+* Windows
+    * Clone repo and cd into repo
+    ```bash
+    git clone https://github.com/Sudoblark/SIR_Model_Animation.git
+    cd SIR_Model_Animation
+    ```
+    * Setup Python venv and activate
+    ```bash
+    python3 -m venv venv
+    venv\Scripts\activate
+    ```
+    * Install dependencies
+    ```bash
+    pip3 install -r requirements
+    ```
+
+* Linux
+    * Clone repo and cd into repo
+    ```bash
+    git clone https://github.com/Sudoblark/SIR_Model_Animation.git
+    cd SIR_Model_Animation
+    ```
+    * Setup Python venv
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+    * Install dependencies
+    ```bash
+    pip3 install -r requirements.txt
+    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -84,7 +118,42 @@ TODO LIST INSTALLING LIBRARIES ETC BUT DON'T SHOW EXECUTION
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-SHOW USAGE EXAMPLES, WITH ANIMATED GIF OF DATA
+Now your virtual environment is setup, run help to determine what options are available:
+
+```
+(venv) C:\temp\SIR_Model_Animation>python -m main -h
+------------------------------------------------
+SIR Model Animation Copyright (C) 2022 Sudoblark
+Run 'main -h' for more information
+------------------------------------------------
+
+usage: main.py [-h] [-l] [--csvFile CSVFILE]
+               {csv,matplotlib,terminal} population initialInfection days transmissionRate recoveryRate
+
+positional arguments:
+  {csv,matplotlib,terminal}
+                        Select output type
+  population            Size of closed population
+  initialInfection      Infected individuals on day 0
+  days                  Number of days our simulation should model
+  transmissionRate      How infectious infected individuals are
+  recoveryRate          How quickly individuals move into recovered state
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l                    Show licensing information
+  --csvFile CSVFILE     Full path to CSV file to output to
+
+```
+
+For example, running the below will output a line graph showing SIR data:
+
+```
+(venv) C:\temp\SIR_Model_Animation>python -m main matplotlib 150 4 60 0.12 0.18
+```
+![Example SIR data](images/example_data.png "Example SIR data")
+
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -105,15 +174,12 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the GNU General Public License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
