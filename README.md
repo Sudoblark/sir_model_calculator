@@ -34,6 +34,14 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <ul>
+          <li>
+            <a href="#tests">Tests</a>
+            <ul>
+              <li><a href="#unit-tests">Unit Tests</a></li>
+            </ul>
+          </li>
+        </ul>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -113,7 +121,22 @@ The steps below detail how to get a local version up the program up and running.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- TESTS -->
+### Tests
+#### Unit Tests
+Unit tests are run on every commit, but you can do them yourself if working locally by following the below instructions.
 
+* Setup a venv as per installation instructions
+* Install the following packages:
+```
+pip install pytest
+```
+* Run pytest with Python executor to implicitly add current path to PYTHONPATH
+```
+python -m pytest
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -156,7 +179,6 @@ For example, running the below will output a line graph showing SIR data:
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
