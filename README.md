@@ -177,8 +177,12 @@ For example, running the below will output a line graph showing SIR data:
 ![Example SIR data](images/example_data.png "Example SIR data")
 
 
-
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- CI -->
+## CI
+
+CircleCI is used to run unit tests on every commit, and generate code coverage reports.
 
 <!-- CONTRIBUTING -->
 ## Contributing

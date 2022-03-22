@@ -1,0 +1,50 @@
+version: 2.1
+
+jobs:
+  run-unit-tests:
+    docker:
+      - image: circleci/python:3.8
+
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            pip install -r requirements.txt
+            pip install pytest
+      - run:
+          name: Run PyTest
+          command: |
+            python -m pytest --junit=pytest.xml
+
+      - store_test_results:
+          path: pytest.xml
+
+  generate-code-coverage:
+    docker:
+      - image: circleci/python:3.8
+
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            pip install -r requirements.txt
+            pip install pytest
+            pip install coverage
+      - run:
+          name: Generate coverage
+          command: |
+            coverage run -m pytest
+            coverage report
+            coverage html
+
+      - store_test_results:
+          path: htmlcov
+
+workflows:
+  run-tests-and-coverage:
+    jobs:
+      - run-unit-tests
+      - generate-code-coverage
+
