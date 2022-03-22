@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Run PyTest
           command: |
-            python -m pytest --junitxml=pytest.xml
+            python -m pytest tests/ --junitxml=pytest.xml
 
       - store_test_results:
           path: pytest.xml
