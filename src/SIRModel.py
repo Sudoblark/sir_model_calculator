@@ -104,7 +104,7 @@ class SIRModel:
     def runSimulation(self, callbackFunction: Callable) -> None:
         """
         Runs our simulation, calculating SIR values, for n days where n was the day value
-        passed in to the constructor
+        passed in to the constructor. I values are rounded to 6 decimal places.
 
         :param callbackFunction: function to execute on every iteration, will be passed single list with SIR values
         of the day in order D, S, I, R (Day, Susceptible, Individual, Recovered)
@@ -165,7 +165,7 @@ class SIRModel:
 
         previouslyInfected = self.__infected[previousDay]
         expectedNewInfections = self.__changeInInfected(previouslyInfected, self.__susceptible[previousDay])
-        cumulativeInfected = previouslyInfected + expectedNewInfections
+        cumulativeInfected = round(previouslyInfected + expectedNewInfections, 6)
         self.__infected[currentDay] = cumulativeInfected
 
         previousRecovered = self.__recovered[previousDay]
