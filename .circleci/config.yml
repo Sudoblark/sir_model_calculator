@@ -47,15 +47,19 @@ jobs:
           name: Coverage HTML
           command: coverage html
 
-      # anybadge
       - run:
           name: Generate Coverage Badge
           command: |
-            coverage report | grep '/^TOTAL.+?(\d+\%)$/'
-            
+            pip install anybadge
+            coverage run -m pytest tests/ || true
+            coverage report >> pytest.txt
+            cat pytest.txt | grep '/TOTAL.+?(\d+\%)/' > pytest.score
+            anybadge --overwrite --label $CI_JOB_NAME --value=$(cat pytest.score) --file=coverage.svg 40=red 60=orange 80=yellow 100=green
 
       - store_artifacts:
           path: htmlcov
+      - store_artifacts:
+          path: coverage.svg
 
 workflows:
   run-tests-and-coverage:
