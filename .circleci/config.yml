@@ -52,7 +52,7 @@ jobs:
           command: |
             coverage report >> pytest.txt
             cat pytest.txt | grep '/TOTAL.+?(\d+\%)/' > pytest.score
-            anybadge --overwrite --label $CI_JOB_NAME --value=$(cat pytest.score) --file=coverage.svg 40=red 60=orange 80=yellow 100=green
+            anybadge --overwrite --label test --value=$(cat pytest.score) --file=coverage.svg 40=red 60=orange 80=yellow 100=green
 
       - store_artifacts:
           path: htmlcov
