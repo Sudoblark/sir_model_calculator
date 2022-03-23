@@ -42,9 +42,17 @@ jobs:
       - run:
           name: Coverage report
           command: coverage report
+
       - run:
           name: Coverage HTML
           command: coverage html
+
+      # anybadge
+      - run:
+          name: Generate Coverage Badge
+          command: |
+            coverage report | grep '/^TOTAL.+?(\d+\%)$/'
+            
 
       - store_artifacts:
           path: htmlcov
