@@ -84,6 +84,8 @@ jobs:
       - run:
           name: Output PyLint badge
           command: anybadge --overwrite --label ${CIRCLE_BRANCH} --value=$(cat pylint/pylint.score) --file=pylint/badge.svg 4=red 6=orange 8=yellow 10=green
+      - store_artifacts:
+          path: pylint/badge.svg
 
 workflows:
   run-tests-and-coverage:
