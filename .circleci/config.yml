@@ -50,9 +50,45 @@ jobs:
       - store_artifacts:
           path: htmlcov
 
+
+  pylint:
+    docker:
+      - image: circleci/python:3.8
+
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: Install PyLint
+          command: pip install pylint
+      - run:
+          name: Install AnyBadge
+          command: pip install anybadge
+      - run:
+          name: Install PyLint plugins
+          command: pip install pylint_gitlab
+      - run:
+          name: Create PyLint output folder
+          command: mkdir pylint
+      - run:
+          name: Create PyLint HTML output
+          command: pylint src --exit-zero --load-plugins=pylint_gitlab --output-format=gitlab-pages-html --output=pylint/index.html
+      - run:
+          name: Output PyLint summary
+          command: pylint src --exit-zero --output-format=text | tee pylint/pylint.txt
+      - run:
+          name: Find PyLint score
+          command: sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' /pylint/pylint.txt > pylint/pylint.score
+      - run:
+          name: Output PyLint badge
+          command: anybadge --overwrite --label ${CIRCLE_BRANCH} --value=$(cat pylint/pylint.score) --file=pylint/badge.svg 4=red 6=orange 8=yellow 10=green
+
 workflows:
   run-tests-and-coverage:
     jobs:
       - run-unit-tests
       - generate-code-coverage
+      - pylint
 
