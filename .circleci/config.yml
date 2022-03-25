@@ -77,15 +77,15 @@ jobs:
           command: pylint src --exit-zero --load-plugins=pylint_gitlab --output-format=gitlab-pages-html --output=pylint/index.html
       - run:
           name: Output PyLint summary
-          command: pylint src --exit-zero --output-format=text | tee pylint/pylint.txt
+          command: pylint src --exit-zero --output-format=text | tee /tmp/pylint/pylint.txt
       - run:
           name: Find PyLint score
-          command: sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint/pylint.txt > pylint/pylint.score
+          command: sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' /tmp/pylint/pylint.txt > /tmp/pylint/pylint.score
       - run:
           name: Output PyLint badge
-          command: anybadge --overwrite --label ${CIRCLE_BRANCH} --value=$(cat pylint/pylint.score) --file=pylint/badge.svg 4=red 6=orange 8=yellow 10=green
+          command: anybadge --overwrite --label ${CIRCLE_BRANCH} --value=$(cat /tmp/pylint/pylint.score) --file=pylint/badge.svg 4=red 6=orange 8=yellow 10=green
       - store_artifacts:
-          path: pylint/badge.svg
+          path: pylint
 
 workflows:
   run-tests-and-coverage:
