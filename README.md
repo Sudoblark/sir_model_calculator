@@ -39,6 +39,7 @@
             <a href="#tests">Tests</a>
             <ul>
               <li><a href="#unit-tests">Unit Tests</a></li>
+              <li><a href="#linter">Linter</a></li>
             </ul>
           </li>
         </ul>
@@ -137,6 +138,20 @@ python -m pytest
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+#### Linter
+PyLint is run on every commit, but you can run it yoruself if working locally by following the below instructions.
+* Setup a venv as per installation instructions
+* Install the following packages:
+```
+pip install pylint
+pip install pylint_gitlab
+```
+
+* Run PyLint with HTML output
+```
+pylint src --exit-zero --load-plugins=pylint_gitlab --output-format=gitlab-pages-html --output=index.html
+```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
