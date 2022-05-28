@@ -21,7 +21,7 @@ def test_get_model_configuration():
     """
     population, initial_infection, days, transmission_rate, recovery_rate, sir_model = __setup_basic_sir_model()
     sir_model_configuration = sir_model.get_model_configuration()
-    assert sir_model_configuration['population'] == population, "Population returned in getModelConfiguration is not " \
+    assert sir_model_configuration['closed_population'] == population, "Population returned in getModelConfiguration is not " \
                                                                 "that passed in to init"
 
     assert sir_model_configuration['initialInfections'] == initial_infection, "initialInfection returned in " \
@@ -41,7 +41,7 @@ def test_get_model_configuration():
 
 def test_run_simulation():
     """
-    Unit test which tests if runSimulation executes callbackFunction for every day simulated day in model,
+    Unit test which tests if runSimulation executes callback_function for every day simulated day in model,
     returning non-null data for each day
     :return:
     """

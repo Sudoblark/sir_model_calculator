@@ -30,53 +30,53 @@ class MatplotlibOutput:
         """
         Sets up state to allow periodic updating of line graphs
         """
-        self.__susceptible = []
-        self.__infected = []
-        self.__recovered = []
-        self.__days = []
+        self._susceptible = []
+        self._infected = []
+        self._recovered = []
+        self._days = []
 
-        self.__modelConfiguration = None
+        self.__model_configuration = None
 
-    def addModelConfigurationValues(self, modelConfiguration: dict):
+    def add_model_configuration_values(self, model_configuration: dict):
         """
         Adds model configuration to state to allow display of relevant legend
-        :param modelConfiguration: Returned configuration of SIRModel
+        :param model_configuration: Returned configuration of SIRModel
         """
-        self.__modelConfiguration = modelConfiguration
+        self.__model_configuration = model_configuration
 
-    def updateValues(self, sirData: list) -> None:
+    def update_values(self, sir_data: list) -> None:
         """
         Public interface called to update state values for graphs
-        :param sirData: list of days, correlate to list with values [day, susceptible, infected, recovered]
+        :param sir_data: list of days, correlate to list with values [day, susceptible, infected, recovered]
         """
-        self.__days.append(sirData[0])
-        self.__susceptible.append(sirData[1])
-        self.__infected.append(sirData[2])
-        self.__recovered.append(sirData[3])
+        self._days.append(sir_data[0])
+        self._susceptible.append(sir_data[1])
+        self._infected.append(sir_data[2])
+        self._recovered.append(sir_data[3])
 
-    def showGraph(self):
+    def show_graph(self):
         """
         Actually creates and shows line graph
         """
         # Map overlapping lines
-        plt.plot(self.__days, self.__susceptible, color="b", label="susceptible")
-        plt.plot(self.__days, self.__infected, color="r", label="infected")
-        plt.plot(self.__days, self.__recovered, color="g", label="recovered")
+        plt.plot(self._days, self._susceptible, color="b", label="susceptible")
+        plt.plot(self._days, self._infected, color="r", label="infected")
+        plt.plot(self._days, self._recovered, color="g", label="recovered")
         # Add labels
         plt.xlabel("Days since outbreak")
         plt.ylabel("Individuals")
-        plt.title("SIR Model showing outbreak in a closed population")
+        plt.title("SIR Model showing outbreak in a closed closed_population")
         # Anchor legend outside the plot
         plt.legend(bbox_to_anchor=(1.05, 1.0), loc="upper left")
-        plt.text(len(self.__days) + 5, 1.0, str(self.__returnModelConfigurationText()))
+        plt.text(len(self._days) + 5, 1.0, str(self._return_model_configuration_text()))
         plt.tight_layout()
         plt.show()
 
-    def __returnModelConfigurationText(self):
-        returnText = "Population: {0}\nInitial Infections: {1}\nTransmission Rate: {2}\nRecovery Rate: {3}".format(
-            self.__modelConfiguration['population'],
-            self.__modelConfiguration['initialInfections'],
-            self.__modelConfiguration['transmissionRate'],
-            self.__modelConfiguration['recoveryRate']
+    def _return_model_configuration_text(self):
+        return_text = "Population: {0}\nInitial Infections: {1}\nTransmission Rate: {2}\nRecovery Rate: {3}".format(
+            self.__model_configuration['closed_population'],
+            self.__model_configuration['initialInfections'],
+            self.__model_configuration['transmissionRate'],
+            self.__model_configuration['recoveryRate']
         )
-        return returnText
+        return return_text

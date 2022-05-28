@@ -22,9 +22,9 @@ class OutputEnum(Enum):
     """
     Enum of output options for program
     """
-    csv = 'csv'
-    matplotlib = 'matplotlib'
-    terminal = 'terminal'
+    CSV = 'csv'
+    MATPLOTLIB = 'matplotlib'
+    TERMINAL = 'terminal'
 
     def __str__(self):
         return self.value

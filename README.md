@@ -3,6 +3,8 @@
 <br />
 <div align="center">
 
+[![CircleCI](https://circleci.com/gh/Sudoblark/SIR_Model_Calculator/tree/main.svg?style=shield&circle-token=eaba09207fbcf8e33579b24645cc7f08a720497c)](https://circleci.com/gh/Sudoblark/SIR_Model_Calculator/tree/main)
+
 <h3 align="center">SIR Model Calculator</h3>
 
   <p align="center">

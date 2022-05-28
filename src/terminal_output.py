@@ -18,19 +18,19 @@
 import os
 
 
-def outputData(sirData: list) -> None:
+def output_data(sir_data: list) -> None:
     """
     Outputs SIR data to terminal, in format: Dau, Susceptible, Infected, Recovered
     """
-    outputString = ', '.join(str(data) for data in sirData)
-    print(outputString)
+    output_string = ', '.join(str(data) for data in sir_data)
+    print(output_string)
 
 
-def outputHeader() -> None:
+def output_header() -> None:
     """
     Outputs header to terminal to contextualise data
     """
-    headerString = "SIR model data - terminal output" + os.linesep
-    headerString += "-" * len(headerString) + os.linesep
-    headerString += "Day, Susceptible, Individual, Recovered" + os.linesep
-    print(headerString)
+    header_string = "SIR model data - terminal output" + os.linesep
+    header_string += "-" * len(header_string) + os.linesep
+    header_string += "Day, Susceptible, Individual, Recovered" + os.linesep
+    print(header_string)

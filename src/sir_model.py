@@ -21,13 +21,13 @@ from typing import Callable
 class SIRModel:
     """
     A class to represent a basic SIR model to simulate susceptible (S), infected (I)
-    and recovered (R) individuals within a closed population
+    and recovered (R) individuals within a closed closed_population
 
     Public Methods
     ----
-    runSimulation(callbackFunction)
+    runSimulation(callback_function)
         runs the model for n days, populating results in class state, where n was
-        defined during instance creation. Each day, callbackFunction is called with
+        defined during instance creation. Each day, callback_function is called with
         a single list argument with data [D, S, I, R] (D being day that data corresponds to)
 
     getModelConfiguration()
@@ -41,34 +41,34 @@ class SIRModel:
         across n lines where n is the length of days that the model runs for
     """
 
-    def __init__(self, aPopulation: int,
-                 anInfection: int,
+    def __init__(self, closed_population: int,
+                 initial_infected: int,
                  days: int,
-                 aTransmissionRate: float,
-                 aRecoveryRate: float) -> None:
+                 transmission_rate: float,
+                 recovery_rate: float) -> None:
         """
         Configures our model, and sets values for first day
 
-        :param aPopulation: individuals in the closed population
-        :param anInfection: initial number of infected individuals
+        :param closed_population: individuals in the closed closed_population
+        :param initial_infected: initial number of infected individuals
         :param days: how many days the model should simulate
-        :param aTransmissionRate: how infectious infected individuals are
-        :param aRecoveryRate: how quickly individuals recover from infection
+        :param transmission_rate: how infectious infected individuals are
+        :param recovery_rate: how quickly individuals recover from infection
         """
-        self.__population = aPopulation
-        self.__initialInfections = anInfection
-        self.__days = days
-        self.__transmitionRate = aTransmissionRate
-        self.__recoveryRate = aRecoveryRate
+        self._closed_population = closed_population
+        self._initial_infected = initial_infected
+        self._days = days
+        self._transmission_rate = transmission_rate
+        self.__recovery_rate = recovery_rate
 
         # Initialise SIR arrays with 0 values
-        self.__susceptible = [0] * self.__days
-        self.__infected = [0] * days
-        self.__recovered = [0] * days
+        self._susceptible = [0] * self._days
+        self._infected = [0] * days
+        self._recovered = [0] * days
 
         # Set first day infection
-        self.__infected[0] = anInfection
-        self.__susceptible[0] = self.__population - anInfection
+        self._infected[0] = initial_infected
+        self._susceptible[0] = self._closed_population - initial_infected
 
     def get_model_configuration(self) -> dict:
         """
@@ -76,14 +76,14 @@ class SIRModel:
 
         :return: Configuration data
         """
-        modelConfiguration = {
-            "population": self.__population,
-            "initialInfections": self.__initialInfections,
-            "simulatedDays": self.__days,
-            "transmissionRate": self.__transmitionRate,
-            "recoveryRate": self.__recoveryRate
+        model_configuration = {
+            "closed_population": self._closed_population,
+            "initialInfections": self._initial_infected,
+            "simulatedDays": self._days,
+            "transmissionRate": self._transmission_rate,
+            "recoveryRate": self.__recovery_rate
         }
-        return modelConfiguration
+        return model_configuration
 
     def get_model_result_matrix(self) -> list:
         """
@@ -92,90 +92,90 @@ class SIRModel:
         :return: list of lists, first index being day second list being indexed in form [S, I, R],
         for example [ [146, 4, 0], [140, 4, 4]]
         """
-        returnedMatrix = [[0 for i in range(3)] for j in range(self.__days)]
-        for i in range(self.__days):
-            returnedMatrix[i] = [
-                self.__susceptible[i],
-                self.__infected[i],
-                self.__recovered[i]
+        returned_matrix = [[0 for i in range(3)] for j in range(self._days)]
+        for i in range(self._days):
+            returned_matrix[i] = [
+                self._susceptible[i],
+                self._infected[i],
+                self._recovered[i]
             ]
-        return returnedMatrix
+        return returned_matrix
 
-    def run_simulation(self, callbackFunction: Callable) -> None:
+    def run_simulation(self, callback_function: Callable) -> None:
         """
         Runs our simulation, calculating SIR values, for n days where n was the day value
         passed in to the constructor. I values are rounded to 6 decimal places.
 
-        :param callbackFunction: function to execute on every iteration, will be passed single list with SIR values
+        :param callback_function: function to execute on every iteration, will be passed single list with SIR values
         of the day in order D, S, I, R (Day, Susceptible, Individual, Recovered)
         """
-        for i in range(1, self.__days):
-            self.__nextDay(i - 1)
-            passedInData = [
+        for i in range(1, self._days):
+            self._next_day(i - 1)
+            passed_in_data = [
                 i,
-                self.__susceptible[i],
-                self.__infected[i],
-                self.__recovered[i]
+                self._susceptible[i],
+                self._infected[i],
+                self._recovered[i]
             ]
-            callbackFunction(passedInData)
+            callback_function(passed_in_data)
 
-    def _newly_infected(self, currentInfected: float, currentSusceptible: float) -> float:
+    def _newly_infected(self, current_infected: float, current_susceptible: float) -> float:
         """
         Uses density-dependent model of infection to calculate expected
         number of newly infected individuals in a day
 
-        :param currentInfected: individuals currently infected
-        :param currentSusceptible: individuals currently susceptible
+        :param current_infected: individuals currently infected
+        :param current_susceptible: individuals currently susceptible
 
         :return: expected number of individuals which will catch the infection
         """
-        return (self.__transmitionRate * currentInfected * currentSusceptible) / self.__population
+        return (self._transmission_rate * current_infected * current_susceptible) / self._closed_population
 
-    def __newlyRecovered(self, currentInfected: float) -> float:
+    def _newly_recovered(self, current_infected: float) -> float:
         """
         Calculates number of people expected to recover in a day
 
-        :param currentInfected: individuals currently infected
+        :param current_infected: individuals currently infected
 
         :return: expected number of individuals which will recover
         """
-        return self.__recoveryRate * currentInfected
+        return self.__recovery_rate * current_infected
 
-    def __changeInInfected(self, currentInfected: float, currentSusceptible: float) -> float:
+    def _change_in_infected(self, current_infected: float, current_susceptible: float) -> float:
         """
         Calculates the change in infected individuals, taking into account recoveries, in a day
 
-        :param currentInfected: individuals currently infected
-        :param currentSusceptible: individuals currently susceptible
+        :param current_infected: individuals currently infected
+        :param current_susceptible: individuals currently susceptible
 
         :return: total number of new infections taking into account recoveries
         """
-        newInfections = self._newly_infected(currentInfected, currentSusceptible)
-        newRecoveries = self.__newlyRecovered(currentInfected)
-        return newInfections - newRecoveries
+        new_infections = self._newly_infected(current_infected, current_susceptible)
+        new_recoveries = self._newly_recovered(current_infected)
+        return new_infections - new_recoveries
 
-    def __nextDay(self, previousDay: int) -> None:
+    def _next_day(self, previous_day: int) -> None:
         """
         Calculates SIR values, based on previous day's data, for day n + 1 where n is the previous day and
         populates class state appropriately
 
-        :param previousDay: int value of previous day of simulation, used to calculate current day numbers
+        :param previous_day: int value of previous day of simulation, used to calculate current day numbers
         """
-        currentDay = previousDay + 1
+        current_day = previous_day + 1
 
-        previouslyInfected = self.__infected[previousDay]
-        expectedNewInfections = self.__changeInInfected(previouslyInfected, self.__susceptible[previousDay])
-        cumulativeInfected = round(previouslyInfected + expectedNewInfections, 6)
-        self.__infected[currentDay] = cumulativeInfected
+        previously_infected = self._infected[previous_day]
+        expected_new_infections = self._change_in_infected(previously_infected, self._susceptible[previous_day])
+        cumulative_infected = round(previously_infected + expected_new_infections, 6)
+        self._infected[current_day] = cumulative_infected
 
-        previousRecovered = self.__recovered[previousDay]
-        expectedNewRecovered = self.__newlyRecovered(previouslyInfected)
-        cumulativeRecovered = previousRecovered + expectedNewRecovered
-        self.__recovered[currentDay] = cumulativeRecovered
+        previous_recovered = self._recovered[previous_day]
+        expected_new_recovered = self._newly_recovered(previously_infected)
+        cumulative_recovered = previous_recovered + expected_new_recovered
+        self._recovered[current_day] = cumulative_recovered
 
-        nonSusceptibleIndividuals = cumulativeInfected + cumulativeRecovered
-        susceptibleIndividuals = self.__population - nonSusceptibleIndividuals
-        self.__susceptible[currentDay] = susceptibleIndividuals
+        non_susceptible_individuals = cumulative_infected + cumulative_recovered
+        susceptible_individuals = self._closed_population - non_susceptible_individuals
+        self._susceptible[current_day] = susceptible_individuals
 
     def __str__(self) -> str:
         """
@@ -183,12 +183,12 @@ class SIRModel:
         :return: String of n lines, where n is days model represents and each line
         is 'D {0}: S {1}: I{2}: R{3}' with correspond SIR values for that day
         """
-        returnedString = ""
-        for i in range(self.__days):
-            returnedString += "D {0}: S {1}: I {2}: R {3}\n".format(
+        returned_string = ""
+        for i in range(self._days):
+            returned_string += "D {0}: S {1}: I {2}: R {3}\n".format(
                 i,
-                self.__susceptible[i],
-                self.__infected[i],
-                self.__recovered[i]
+                self._susceptible[i],
+                self._infected[i],
+                self._recovered[i]
             )
-        return returnedString
+        return returned_string
