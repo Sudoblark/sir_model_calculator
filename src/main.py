@@ -49,13 +49,13 @@ if __name__ == '__main__':
         csvHandler = CsvOutput(args.csvFile)
         csvHandler.openHandler()
         csvHandler.writeHeader()
-        sirModel.runSimulation(csvHandler.write)
+        sirModel.run_simulation(csvHandler.write)
         csvHandler.closeHandler()
     elif args.output is OutputEnum.matplotlib:
         MatplotlibHandler = MatplotlibOutput()
-        sirModel.runSimulation(MatplotlibHandler.updateValues)
-        MatplotlibHandler.addModelConfigurationValues(sirModel.getModelConfiguration())
+        sirModel.run_simulation(MatplotlibHandler.updateValues)
+        MatplotlibHandler.addModelConfigurationValues(sirModel.get_model_configuration())
         MatplotlibHandler.showGraph()
     elif args.output is OutputEnum.terminal:
         TerminalOutput.outputHeader()
-        sirModel.runSimulation(TerminalOutput.outputData)
+        sirModel.run_simulation(TerminalOutput.outputData)

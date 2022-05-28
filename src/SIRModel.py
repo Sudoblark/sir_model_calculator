@@ -70,7 +70,7 @@ class SIRModel:
         self.__infected[0] = anInfection
         self.__susceptible[0] = self.__population - anInfection
 
-    def getModelConfiguration(self) -> dict:
+    def get_model_configuration(self) -> dict:
         """
         Returns configuration data for the model in dict format
 
@@ -85,7 +85,7 @@ class SIRModel:
         }
         return modelConfiguration
 
-    def getModelResultMatrix(self) -> list:
+    def get_model_result_matrix(self) -> list:
         """
         Returns results of model in a list of lists
 
@@ -101,7 +101,7 @@ class SIRModel:
             ]
         return returnedMatrix
 
-    def runSimulation(self, callbackFunction: Callable) -> None:
+    def run_simulation(self, callbackFunction: Callable) -> None:
         """
         Runs our simulation, calculating SIR values, for n days where n was the day value
         passed in to the constructor. I values are rounded to 6 decimal places.
@@ -119,7 +119,7 @@ class SIRModel:
             ]
             callbackFunction(passedInData)
 
-    def __newlyInfected(self, currentInfected: float, currentSusceptible: float) -> float:
+    def _newly_infected(self, currentInfected: float, currentSusceptible: float) -> float:
         """
         Uses density-dependent model of infection to calculate expected
         number of newly infected individuals in a day
@@ -150,7 +150,7 @@ class SIRModel:
 
         :return: total number of new infections taking into account recoveries
         """
-        newInfections = self.__newlyInfected(currentInfected, currentSusceptible)
+        newInfections = self._newly_infected(currentInfected, currentSusceptible)
         newRecoveries = self.__newlyRecovered(currentInfected)
         return newInfections - newRecoveries
 

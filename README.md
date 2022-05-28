@@ -3,17 +3,17 @@
 <br />
 <div align="center">
 
-<h3 align="center">SIR Model Animation</h3>
+<h3 align="center">SIR Model Calculator</h3>
 
   <p align="center">
     Program to model an epidemic outbreak, using a basic SIR Model, then visualise in matplotlib
     <br />
-    <a href="https://github.com/Sudoblark/SIR_Model_Animation"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Sudoblark/SIR_Model_Calculator"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Sudoblark/SIR_Model_Animation/issues">Report Bug</a>
+    <a href="https://github.com/Sudoblark/SIR_Model_Calculator/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Sudoblark/SIR_Model_Animation/issues">Request Feature</a>
+    <a href="https://github.com/Sudoblark/SIR_Model_Calculator/issues">Request Feature</a>
   </p>
 </div>
 
