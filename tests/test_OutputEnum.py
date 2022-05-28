@@ -1,4 +1,4 @@
-from src.OutputEnum import OutputEnum
+from src.output_enum import OutputEnum
 
 
 def test_enum():

@@ -1,4 +1,4 @@
-from src.SIRModel import SIRModel
+from src.sir_model import SIRModel
 import random
 
 

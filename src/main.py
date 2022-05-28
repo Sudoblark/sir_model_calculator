@@ -16,16 +16,16 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import argparse
-import ArgparserHelp
-from SIRModel import SIRModel
-from OutputEnum import OutputEnum
-import TerminalOutput
-from CsvOutput import CsvOutput
-from MatplotlibOutput import MatplotlibOutput
+import argparser_help
+from sir_model import SIRModel
+from output_enum import OutputEnum
+import terminal_output
+from csv_output import CsvOutput
+from matplotlib_output import MatplotlibOutput
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print(ArgparserHelp.return_header())
+    print(argparser_help.return_header())
     parser = argparse.ArgumentParser()
 
     parser.add_argument("output", type=OutputEnum, choices=list(OutputEnum), help="Select output type")
@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     if args.l:
-        print(ArgparserHelp.return_license())
+        print(argparser_help.return_license())
         exit(0)
 
     sirModel = SIRModel(args.population, args.initialInfection, args.days, args.transmissionRate, args.recoveryRate)
@@ -57,5 +57,5 @@ if __name__ == '__main__':
         MatplotlibHandler.addModelConfigurationValues(sirModel.get_model_configuration())
         MatplotlibHandler.showGraph()
     elif args.output is OutputEnum.terminal:
-        TerminalOutput.outputHeader()
-        sirModel.run_simulation(TerminalOutput.outputData)
+        terminal_output.outputHeader()
+        sirModel.run_simulation(terminal_output.outputData)
