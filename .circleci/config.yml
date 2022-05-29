@@ -113,11 +113,12 @@ jobs:
 
   deploy-to-dev:
     docker:
-      - image: docker:20.10.14
+      - image: docker:stable
 
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: docker:20.10.14
       - build-and-push-image:
           tag: "dev"
 
@@ -127,7 +128,8 @@ jobs:
 
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: docker:20.10.14
       - build-and-push-image:
           tag: "qa"
 
@@ -137,7 +139,8 @@ jobs:
 
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: docker:20.10.14
       - build-and-push-image:
           tag: "${CIRCLECI_TAG}"
 
