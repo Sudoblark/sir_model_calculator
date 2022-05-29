@@ -6,6 +6,12 @@ which I found particularly intriguing, so I figured I'd redo my answer in Python
 
 This docker image represents a containerised version you can just 'plug and go' with. 
 
+## Tags
+- `dev` refers to an image that has been built off of a branched piece of work - UNSTABLE
+- `qa` refers to work that has been merged into main - POTENTIALLY UNSTABLE
+- `\d.\d.\d` version will refer to a specific release - STABLE
+  - The last release will also be what `latest` refers to as well
+
 ## Getting Started
 
 ### Prerequisities
