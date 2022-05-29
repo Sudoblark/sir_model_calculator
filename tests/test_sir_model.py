@@ -1,9 +1,8 @@
 from src.sir_model import SIRModel
 import random
-from io import StringIO
-import sys
 import re
 
+# Taken from Java implementation of SIR Model from 99% assignment submitted for Open University M250 TMA02
 KNOWN_INFECTION_NUMBERS = [
     4.000000,
     4.954133,
@@ -137,10 +136,6 @@ def test_run_simulation_accuracy():
     - Accurate ending SIR numbers
     :return:
     """
-    # Taken from Java implementation of SIR Model from 99% assignment submitted for Open University M250 TMA02
-    # Listed with 5 values a row
-
-    known_ending_sir = [16, 0, 134]
 
     population = 150
     initial_infection = 4
@@ -188,10 +183,6 @@ def test_str_override():
     expected
     :return:
     """
-    # Used to redirect stdout so we can test it
-    captured_output = StringIO()
-    sys.stdout = captured_output
-
     population = 150
     initial_infection = 4
     days = 60

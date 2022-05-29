@@ -20,7 +20,7 @@ import os
 
 def output_data(sir_data: list) -> None:
     """
-    Outputs SIR data to terminal, in format: Dau, Susceptible, Infected, Recovered
+    Outputs SIR data to terminal, in format: Day, Susceptible, Infected, Recovered
     """
     output_string = ', '.join(str(data) for data in sir_data)
     print(output_string)
