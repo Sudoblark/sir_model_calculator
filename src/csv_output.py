@@ -40,23 +40,23 @@ class CsvOutput:
         """
         Sets up initial state of class
 
-        :param sir_path:
+        :param sir_path: Path of CSV to write to
         """
-        self.__csv_path = sir_path
-        self.__csv_handler = None
+        self._csv_path = sir_path
+        self._csv_handler = None
 
     def open_handler(self):
         """
         opens file handler for output and adds to state
         """
-        self.__csv_handler = open(self.__csv_path, "w", encoding="utf-8")
+        self._csv_handler = open(self._csv_path, "w", encoding="utf-8")
 
     def close_handler(self):
         """
         closes file handler recorded in state
         """
-        if self.__csv_handler is not None:
-            self.__csv_handler.close()
+        if self._csv_handler is not None:
+            self._csv_handler.close()
 
     def write(self, sir_data: list):
         """
@@ -66,7 +66,7 @@ class CsvOutput:
         """
         line_data = ', '.join(str(data) for data in sir_data)
         line_data += "\n"
-        self.__csv_handler.write(line_data)
+        self._csv_handler.write(line_data)
 
     def write_header(self):
         """
@@ -74,4 +74,4 @@ class CsvOutput:
 
         Day, Susceptible, Infected, Recovered
         """
-        self.__csv_handler.write("Day, Susceptible, Infected, Recovered\n")
+        self._csv_handler.write("Day, Susceptible, Infected, Recovered\n")
