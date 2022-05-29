@@ -113,7 +113,7 @@ jobs:
 
   deploy-to-dev:
     docker:
-      - image: docker:stable
+      - image: docker:20.10.14
 
     steps:
       - checkout
