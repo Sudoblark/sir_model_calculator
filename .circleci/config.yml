@@ -47,14 +47,11 @@ jobs:
           command: coverage report
 
       - run:
-          name: Coverage HTML
+          name: Coverage JSON
           command: coverage json
 
-      - store_artifacts:
-          path: jsoncov
-
       - codecov/upload:
-          file: jsoncov/*
+          file: coverage.json
 
 
   pylint:
