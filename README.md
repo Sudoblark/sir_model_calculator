@@ -3,7 +3,7 @@
 <br />
 <div align="center">
 
-[![CircleCI](https://circleci.com/gh/Sudoblark/SIR_Model_Calculator/tree/main.svg?style=shield&circle-token=eaba09207fbcf8e33579b24645cc7f08a720497c)](https://circleci.com/gh/Sudoblark/SIR_Model_Calculator/tree/main)
+[![CircleCI](https://circleci.com/gh/Sudoblark/sir_model_calculator/tree/main.svg?style=shield&circle-token=8695f18aa8119eee679698c84ed105f4ddd3c46b)](https://circleci.com/gh/Sudoblark/sir_model_calculator/tree/main)
 [![codecov](https://codecov.io/gh/Sudoblark/SIR_Model_Calculator/branch/main/graph/badge.svg?token=4411M8M5UG)](https://codecov.io/gh/Sudoblark/SIR_Model_Calculator)
 
 <h3 align="center">SIR Model Calculator</h3>
