@@ -35,14 +35,14 @@ class MatplotlibOutput:
         self._recovered = []
         self._days = []
 
-        self.__model_configuration = None
+        self._model_configuration = None
 
     def add_model_configuration_values(self, model_configuration: dict):
         """
         Adds model configuration to state to allow display of relevant legend
         :param model_configuration: Returned configuration of SIRModel
         """
-        self.__model_configuration = model_configuration
+        self._model_configuration = model_configuration
 
     def update_values(self, sir_data: list) -> None:
         """
@@ -74,9 +74,9 @@ class MatplotlibOutput:
 
     def _return_model_configuration_text(self):
         return_text = "Population: {0}\nInitial Infections: {1}\nTransmission Rate: {2}\nRecovery Rate: {3}".format(
-            self.__model_configuration['closed_population'],
-            self.__model_configuration['initialInfections'],
-            self.__model_configuration['transmissionRate'],
-            self.__model_configuration['recoveryRate']
+            self._model_configuration['closed_population'],
+            self._model_configuration['initialInfections'],
+            self._model_configuration['transmissionRate'],
+            self._model_configuration['recoveryRate']
         )
         return return_text
