@@ -35,5 +35,5 @@ def test_output_header(capsys):
     captured = capsys.readouterr().out
     outputted_string = str(captured).split("\n")
     print("Hello")
-    assert outputted_string[0] == "SIR model data - terminal output\r"
-    assert outputted_string[2] == "Day, Susceptible, Individual, Recovered\r"
+    assert "SIR model data - terminal output" in outputted_string[0]
+    assert "Day, Susceptible, Individual, Recovered" in outputted_string[2]
