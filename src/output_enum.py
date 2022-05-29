@@ -15,22 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-import os
+from enum import Enum
 
 
-def outputData(sirData: list) -> None:
+class OutputEnum(Enum):
     """
-    Outputs SIR data to terminal, in format: Dau, Susceptible, Infected, Recovered
+    Enum of output options for program
     """
-    outputString = ', '.join(str(data) for data in sirData)
-    print(outputString)
+    CSV = 'csv'
+    MATPLOTLIB = 'matplotlib'
+    TERMINAL = 'terminal'
 
-
-def outputHeader() -> None:
-    """
-    Outputs header to terminal to contextualise data
-    """
-    headerString = "SIR model data - terminal output" + os.linesep
-    headerString += "-" * len(headerString) + os.linesep
-    headerString += "Day, Susceptible, Individual, Recovered" + os.linesep
-    print(headerString)
+    def __str__(self):
+        return self.value

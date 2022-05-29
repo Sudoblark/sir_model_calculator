@@ -15,21 +15,22 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+import sys
 import argparse
-import ArgparserHelp
-from SIRModel import SIRModel
-from OutputEnum import OutputEnum
-import TerminalOutput
-from CsvOutput import CsvOutput
-from MatplotlibOutput import MatplotlibOutput
+import argparser_help
+from sir_model import SIRModel
+from output_enum import OutputEnum
+import terminal_output
+from csv_output import CsvOutput
+from matplotlib_output import MatplotlibOutput
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print(ArgparserHelp.return_header())
+    print(argparser_help.return_header())
     parser = argparse.ArgumentParser()
 
     parser.add_argument("output", type=OutputEnum, choices=list(OutputEnum), help="Select output type")
-    parser.add_argument("population", type=int, help="Size of closed population")
+    parser.add_argument("closed_population", type=int, help="Size of closed closed_population")
     parser.add_argument("initialInfection", type=int, help="Infected individuals on day 0")
     parser.add_argument("days", type=int, help="Number of days our simulation should model")
     parser.add_argument("transmissionRate", type=float, help="How infectious infected individuals are")
@@ -40,22 +41,22 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     if args.l:
-        print(ArgparserHelp.return_license())
-        exit(0)
+        print(argparser_help.return_license())
+        sys.exit(0)
 
     sirModel = SIRModel(args.population, args.initialInfection, args.days, args.transmissionRate, args.recoveryRate)
 
-    if args.output is OutputEnum.csv:
+    if args.output is OutputEnum.CSV:
         csvHandler = CsvOutput(args.csvFile)
-        csvHandler.openHandler()
-        csvHandler.writeHeader()
+        csvHandler.open_handler()
+        csvHandler.write_header()
         sirModel.run_simulation(csvHandler.write)
-        csvHandler.closeHandler()
-    elif args.output is OutputEnum.matplotlib:
+        csvHandler.close_handler()
+    elif args.output is OutputEnum.MATPLOTLIB:
         MatplotlibHandler = MatplotlibOutput()
-        sirModel.run_simulation(MatplotlibHandler.updateValues)
-        MatplotlibHandler.addModelConfigurationValues(sirModel.get_model_configuration())
-        MatplotlibHandler.showGraph()
-    elif args.output is OutputEnum.terminal:
-        TerminalOutput.outputHeader()
-        sirModel.run_simulation(TerminalOutput.outputData)
+        sirModel.run_simulation(MatplotlibHandler.update_values)
+        MatplotlibHandler.add_model_configuration_values(sirModel.get_model_configuration())
+        MatplotlibHandler.show_graph()
+    elif args.output is OutputEnum.TERMINAL:
+        terminal_output.output_header()
+        sirModel.run_simulation(terminal_output.output_data)

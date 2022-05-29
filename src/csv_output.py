@@ -23,55 +23,55 @@ class CsvOutput:
 
     Public methods
     ----
-    openHandler()
+    open_handler()
         opens file handler for our csv output file
 
-    closeHandler()
+    close_handler()
         closes file handler for our csv output file
 
-    write(sirData: list)
+    write(sir_data: list)
         writes provided list values in a new line, with comma as delimiter
 
-    writeHeader()
+    write_header()
         writes header value to csv, with comma as delimiter
     """
 
-    def __init__(self, csvPath: str):
+    def __init__(self, sir_path: str):
         """
         Sets up initial state of class
 
-        :param csvPath:
+        :param sir_path: Path of CSV to write to
         """
-        self.__csvPath = csvPath
-        self.__csvHandler = None
+        self._csv_path = sir_path
+        self._csv_handler = None
 
-    def openHandler(self):
+    def open_handler(self):
         """
         opens file handler for output and adds to state
         """
-        self.__csvHandler = open(self.__csvPath, "w")
+        self._csv_handler = open(self._csv_path, "w", encoding="utf-8")
 
-    def closeHandler(self):
+    def close_handler(self):
         """
         closes file handler recorded in state
         """
-        if self.__csvHandler is not None:
-            self.__csvHandler.close()
+        if self._csv_handler is not None:
+            self._csv_handler.close()
 
-    def write(self, sirData: list):
+    def write(self, sir_data: list):
         """
-        Writes new line to csv output, with sirData files delimited by a comma
+        Writes new line to csv output, with sir_data files delimited by a comma
 
-        :param sirData: values to write to file, should be in format matched by header
+        :param sir_data: values to write to file, should be in format matched by header
         """
-        lineData = ', '.join(str(data) for data in sirData)
-        lineData += "\n"
-        self.__csvHandler.write(lineData)
+        line_data = ', '.join(str(data) for data in sir_data)
+        line_data += "\n"
+        self._csv_handler.write(line_data)
 
-    def writeHeader(self):
+    def write_header(self):
         """
         Writes header to file:
 
         Day, Susceptible, Infected, Recovered
         """
-        self.__csvHandler.write("Day, Susceptible, Infected, Recovered\n")
+        self._csv_handler.write("Day, Susceptible, Infected, Recovered\n")
