@@ -51,7 +51,6 @@ jobs:
           command: coverage json
 
       - codecov/upload:
-          file: coverage.json
 
 
   pylint:
