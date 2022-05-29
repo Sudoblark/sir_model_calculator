@@ -50,7 +50,7 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#docker">Docker</a></li>
+    <li><a href="#releases">Releases</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -221,10 +221,21 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- DOCKER -->
+<!-- Releases -->
 ## Releases
 Releases are both distributed as source code and a docker image.
 
+### Docker
+Images are pushed to [dockerhub](https://hub.docker.com/repository/docker/sudoblark/sir-model-calculator) via circleCI.
+
+Both dockerfile and README.md for dockerhub are inside the `docker` folder
+
+#### Manually building
+To manually build run the following commands:
+
+```
+docker build -f .\docker\dockerfile .
+```
 
 
 <!-- LICENSE -->
