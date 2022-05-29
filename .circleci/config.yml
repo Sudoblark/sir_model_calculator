@@ -50,7 +50,7 @@ jobs:
           name: Coverage JSON
           command: coverage json
 
-      - codecov/upload:
+      - codecov/upload
 
 
   pylint:
