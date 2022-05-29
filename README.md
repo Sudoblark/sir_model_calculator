@@ -201,6 +201,8 @@ For example, running the below will output a line graph showing SIR data:
 
 CircleCI is used to run unit tests on every commit, and generate code coverage reports.
 
+- Code coverage reports are uploaded to codecov, using `CODECOV_TOKEN` for the authorisation token 
+
 <!-- CONTRIBUTING -->
 ## Contributing
 
