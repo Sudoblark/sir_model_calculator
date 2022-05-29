@@ -31,10 +31,10 @@ if __name__ == '__main__':
 
     parser.add_argument("output", type=OutputEnum, choices=list(OutputEnum), help="Select output type")
     parser.add_argument("closed_population", type=int, help="Size of closed closed_population")
-    parser.add_argument("initialInfection", type=int, help="Infected individuals on day 0")
+    parser.add_argument("initial_infection", type=int, help="Infected individuals on day 0")
     parser.add_argument("days", type=int, help="Number of days our simulation should model")
-    parser.add_argument("transmissionRate", type=float, help="How infectious infected individuals are")
-    parser.add_argument("recoveryRate", type=float, help="How quickly individuals move into recovered state")
+    parser.add_argument("transmission_rate", type=float, help="How infectious infected individuals are")
+    parser.add_argument("recovery_rate", type=float, help="How quickly individuals move into recovered state")
 
     parser.add_argument("-l", action="store_true", help="Show licensing information")
     parser.add_argument("--csvFile", help="Full path to CSV file to output to")
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         print(argparser_help.return_license())
         sys.exit(0)
 
-    sirModel = SIRModel(args.population, args.initialInfection, args.days, args.transmissionRate, args.recoveryRate)
+    sirModel = SIRModel(args.closed_population, args.initial_infection, args.days, args.transmission_rate, args.recovery_rate)
 
     if args.output is OutputEnum.CSV:
         csvHandler = CsvOutput(args.csvFile)
