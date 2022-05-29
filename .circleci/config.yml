@@ -13,7 +13,7 @@ commands:
     steps:
       - run:
           name: build image
-          command: docker build -f .\docker\dockerfile . -t sudoblark/sir-model-calculator:<< parameters.tag >>
+          command: docker build -f ./docker/dockerfile . -t sudoblark/sir-model-calculator:<< parameters.tag >>
       - run:
           name: push image
           command: |
