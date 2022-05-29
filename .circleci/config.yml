@@ -47,8 +47,6 @@ jobs:
           name: Coverage HTML
           command: coverage html
 
-      - codecov/upload
-
       - store_artifacts:
           path: htmlcov
 
@@ -99,4 +97,5 @@ workflows:
       - run-unit-tests
       - generate-code-coverage
       - pylint
+      - codecov/upload
 
