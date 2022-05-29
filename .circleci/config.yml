@@ -48,10 +48,13 @@ jobs:
 
       - run:
           name: Coverage HTML
-          command: coverage html
+          command: coverage json
 
       - store_artifacts:
-          path: htmlcov
+          path: jsoncov
+
+      - codecov/upload:
+          file: jsoncov/*
 
 
   pylint:
@@ -100,5 +103,4 @@ workflows:
       - run-unit-tests
       - generate-code-coverage
       - pylint
-      - codecov/upload
 
