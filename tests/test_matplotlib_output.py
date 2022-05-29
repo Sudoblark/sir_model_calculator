@@ -37,6 +37,7 @@ def test_add_model_configuration_values():
     matplot_lib_output.add_model_configuration_values(test_dict)
     assert matplot_lib_output._model_configuration["key"] == "value"
 
+
 def test_return_model_configuration_text():
     matplot_lib_output = MatplotlibOutput()
 
@@ -54,6 +55,7 @@ def test_return_model_configuration_text():
                       (str(population), str(initial_infection), str(transmission_rate), str(recovery_rate))
 
     assert returned_output == expected_output
+
 
 def test_show_graph():
     pass
