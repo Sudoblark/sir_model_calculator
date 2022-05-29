@@ -11,12 +11,12 @@
   <p align="center">
     Program to model an epidemic outbreak, using a basic SIR Model, then visualise in matplotlib
     <br />
-    <a href="https://github.com/Sudoblark/SIR_Model_Calculator"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Sudoblark/sir_model_calculator"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Sudoblark/SIR_Model_Calculator/issues">Report Bug</a>
+    <a href="https://github.com/Sudoblark/sir_model_calculator/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Sudoblark/SIR_Model_Calculator/issues">Request Feature</a>
+    <a href="https://github.com/Sudoblark/sir_model_calculator/issues">Request Feature</a>
   </p>
 </div>
 
@@ -162,7 +162,7 @@ pylint src --exit-zero --load-plugins=pylint_gitlab --output-format=gitlab-pages
 Now your virtual environment is setup, change to the src directory and run help to determine what options are available:
 
 ```
-(venv) C:\temp\SIR_Model_Animation\src>python -m main -h
+(venv) C:\temp\sir_model_calculator\src>python -m main -h
 ------------------------------------------------
 SIR Model Animation Copyright (C) 2022 Sudoblark
 Run 'main -h' for more information
@@ -233,6 +233,6 @@ Distributed under the GNU General Public License. See `LICENSE.txt` for more inf
 
 Sudoblark - [@linkedin_handle](https://www.linkedin.com/in/benni/)
 
-Project Link: [SIR_Model_Animation](https://github.com/Sudoblark/SIR_Model_Animation)
+Project Link: [sir_model_calculator](https://github.com/Sudoblark/sir_model_calculator)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
