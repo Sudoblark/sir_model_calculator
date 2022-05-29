@@ -164,34 +164,12 @@ Now your virtual environment is setup, change to the src directory and run help 
 
 ```
 (venv) C:\temp\sir_model_calculator\src>python -m main -h
-------------------------------------------------
-SIR Model Animation Copyright (C) 2022 Sudoblark
-Run 'main -h' for more information
-------------------------------------------------
-
-usage: main.py [-h] [-l] [--csvFile CSVFILE]
-               {csv,matplotlib,terminal} population initialInfection days transmissionRate recoveryRate
-
-positional arguments:
-  {csv,matplotlib,terminal}
-                        Select output type
-  population            Size of closed population
-  initialInfection      Infected individuals on day 0
-  days                  Number of days our simulation should model
-  transmissionRate      How infectious infected individuals are
-  recoveryRate          How quickly individuals move into recovered state
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -l                    Show licensing information
-  --csvFile CSVFILE     Full path to CSV file to output to
-
 ```
 
 For example, running the below will output a line graph showing SIR data:
 
 ```
-(venv) C:\temp\SIR_Model_Animation\src>python -m main matplotlib 150 4 60 0.12 0.18
+(venv) C:\temp\SIR_Model_Animation\src>python -m main matplotlib 150 4 60 0.43 0.18
 ```
 ![Example SIR data](images/example_data.png "Example SIR data")
 
@@ -201,9 +179,20 @@ For example, running the below will output a line graph showing SIR data:
 <!-- CI -->
 ## CI
 
-CircleCI is used to run unit tests on every commit, and generate code coverage reports.
+CircleCI is used to run unit tests, generate code coverage reports, run pylint and both build and push docker images to dockerhub.
+
+This follows a rather standard workflow of:
+- Commits not on main cause CI to kick in, and to push docker images with a tag of `dev`
+- Commits on main (i.e. an approved PR that is merged) causes CI to ckick in, but pushes docker images with a tag of `qa` rather than `dev`
+- Marking a release in Github triggers CI, but pushes docker images with the following tags:
+  - `latest`
+  - `VERSION` corresponding to the release, e.g. `0.1.0`
+
+
+### Setup
 
 - Code coverage reports are uploaded to codecov, using `CODECOV_TOKEN` for the authorisation token 
+- `DOCKER_USER` and `DOCKER_PASS` env vars are needed for dockerhub authorisation
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -230,13 +219,20 @@ Images are pushed to [dockerhub](https://hub.docker.com/repository/docker/sudobl
 
 Both dockerfile and README.md for dockerhub are inside the `docker` folder
 
-#### Manually building
-To manually build run the following commands:
+#### Manually building and pushing
+To manually build and push run the following commands:
 
 ```
-docker build -f .\docker\dockerfile .
+docker build -f .\docker\dockerfile . -t sudoblark/sir-model-calculator:tagname
+# Done so we also push the readme.md
+cd docker 
+docker push sudoblark/sir-model-calculator:tagname
 ```
 
+### Source Code
+TODO
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- LICENSE -->
 ## License

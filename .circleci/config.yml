@@ -3,6 +3,24 @@ version: 2.1
 orbs:
   codecov: codecov/codecov@3.2.2
 
+
+commands:
+  build-and-push-image:
+    parameters:
+      tag:
+        type: string
+        default: dev
+    steps:
+      - run:
+          name: build image
+          command: docker build -f .\docker\dockerfile . -t sudoblark/sir-model-calculator:<< parameters.tag >>
+      - run:
+          name: push image
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push sudoblark/sir-model-calculator:<< parameters.tag >>
+
+
 jobs:
   run-unit-tests:
     docker:
@@ -93,10 +111,64 @@ jobs:
       - store_artifacts:
           path: pylint
 
+  deploy-to-dev:
+    docker:
+      - image: docker:stable
+
+    steps:
+      - checkout
+      - build-and-push-image:
+          tag: "dev"
+
+  deploy-to-qa:
+    docker:
+      - image: docker:stable
+
+    steps:
+      - checkout
+      - build-and-push-image:
+          tag: "qa"
+
+  deploy-to-prod:
+    docker:
+      - image: docker:stable
+
+    steps:
+      - checkout
+      - build-and-push-image:
+          tag: "${CIRCLECI_TAG}"
+
+
 workflows:
   run-tests-and-coverage:
     jobs:
       - run-unit-tests
       - generate-code-coverage
       - pylint
+      - deploy-to-dev:
+          requires:
+            - run-unit-tests
+            - generate-code-coverage
+            - pylint
+          filters:
+            branches:
+              ignore: main
+      - deploy-to-qa:
+          requires:
+            - run-unit-tests
+            - generate-code-coverage
+            - pylint
+          filters:
+            branches:
+              only: main
+      - deploy-to-prod:
+          requires:
+            - run-unit-tests
+            - generate-code-coverage
+            - pylint
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+.[0-9]+.[0-9]+$/
 

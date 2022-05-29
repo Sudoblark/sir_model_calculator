@@ -51,7 +51,7 @@ if __name__ == '__main__':
     parser.add_argument("recovery_rate", type=float, help="How quickly individuals move into recovered state")
 
     parser.add_argument("-l", action="store_true", help="Show licensing information")
-    parser.add_argument("--csvFile", help="Full path to CSV file to output to")
+    parser.add_argument("--outputLocation", help="Full path to output CSV/matplotlib to, should be .csv or .png as appropriate")
     parser.add_argument("--logLevel", help="Log level for the application", type=str, choices=list(log_level_dictionary), default="INFO")
 
     args = parser.parse_args()
@@ -68,19 +68,27 @@ if __name__ == '__main__':
     sirModel = SIRModel(args.closed_population, args.initial_infection, args.days, args.transmission_rate, args.recovery_rate)
 
     if args.output is OutputEnum.CSV:
+        # Check output path for CSV
+        if ".csv" not in args.outputLocation:
+            logger.error("Output path should end in .csv for CSV output")
+            sys.exit(0)
         logger.debug("csv output entry")
-        csvHandler = CsvOutput(args.csvFile)
+        csvHandler = CsvOutput(args.outputLocation)
         csvHandler.open_handler()
         csvHandler.write_header()
         sirModel.run_simulation(csvHandler.write)
         csvHandler.close_handler()
-        logger.debug("csv outputter successfully written to " + args.csvFile)
+        logger.info("csv outputter successfully written to " + args.outputLocation)
     elif args.output is OutputEnum.MATPLOTLIB:
+        if ".png" not in args.outputLocation:
+            logger.error("Output path should end in .png for CSV output")
+            sys.exit(0)
         logger.debug("matplotlib output entry")
         MatplotlibHandler = MatplotlibOutput()
         sirModel.run_simulation(MatplotlibHandler.update_values)
         MatplotlibHandler.add_model_configuration_values(sirModel.get_model_configuration())
-        MatplotlibHandler.show_graph()
+        MatplotlibHandler.save_graph(args.outputLocation)
+        logger.info("matplotlib outputter successfully written to " + args.outputLocation)
     elif args.output is OutputEnum.TERMINAL:
         logger.debug("terminal output entry")
         terminal_output.output_header()

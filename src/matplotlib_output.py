@@ -57,9 +57,9 @@ class MatplotlibOutput:
         self._infected.append(sir_data[2])
         self._recovered.append(sir_data[3])
 
-    def show_graph(self):
+    def save_graph(self, output_path):
         """
-        Actually creates and shows line graph
+        Saves our line graph
         """
         # Map overlapping lines
         plt.plot(self._days, self._susceptible, color="b", label="susceptible")
@@ -73,7 +73,7 @@ class MatplotlibOutput:
         plt.legend(bbox_to_anchor=(1.05, 1.0), loc="upper left")
         plt.text(len(self._days) + 5, 1.0, str(self._return_model_configuration_text()))
         plt.tight_layout()
-        plt.show()
+        plt.savefig(output_path)
 
     def _return_model_configuration_text(self):
         return_text = "Population: {0}\nInitial Infections: {1}\nTransmission Rate: {2}\nRecovery Rate: {3}".format(

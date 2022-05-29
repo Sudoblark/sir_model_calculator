@@ -1,10 +1,12 @@
-# sir-model-calculator
+# SIR Model Calculator
 
-Dockerised version of [sir_model_calculator](https://github.com/Sudoblark/sir_model_calculator), a Python program
-to model an epidemic outbreak within a closed population, using a basic SIR Model, offering multiple output types. 
+This project aims to use the [SIR Model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology) to simulate
+an epidemic outbreak in a closed population. This was originally a coursework question for my [Degree](https://www.open.ac.uk/courses/computing-it/degrees/bsc-computing-it-software-q62-soft)
+which I found particularly intriguing, so I figured I'd redo my answer in Python and add some nifty data visualisation to boot.
+
+This docker image represents a containerised version you can just 'plug and go' with. 
+
 ## Getting Started
-
-These instructions will cover usage information and for the docker container 
 
 ### Prerequisities
 
@@ -19,41 +21,99 @@ In order to run this container you'll need docker installed.
 
 #### Container Parameters
 
-List the different parameters available to your container
-
-- To get help information
+- Displays help information
 ```shell
 docker run sudoblark/sir-model-calculator -h
 ```
 
-- Example terminal output
-
+- Define a basic run
 ```shell
-docker run sudoblark/sir-model-calculator terminal 150 4 60 0.12 0.18
+docker run sudoblark/sir-model-calculator output closed_population initial_infection days transmission_rate recovery_rate
 ```
 
-- Example CSV output
+- Define output location for csv/matplotlib
+```shell
+docker run sudoblark/sir-model-calculator output closed_population initial_infection days transmission_rate recovery_rate --outputLocation <location>
 ```
-docker run -v D:\Github\SIR_Model_Calculator\output:/output sudoblark/sir-model-calculator terminal 150 4 60 0.12 0.18
+
+- Change log level
+```shell
+docker run sudoblark/sir-model-calculator output closed_population initial_infection days transmission_rate recovery_rate --logLevel <level>
 ```
 
-- Example matplotlib output TODO
+- Open shell inside container
+```shell
+docker run --entrypoint "/bin/bash" sudoblark/sir-model-calculator
+```
 
-#### Useful File Locations TODO
+#### Examples
+- Show license info
+```shell
+docker run sudoblark/sir-model-calculator terminal 150 4 60 0.43 0.18 -l
+```
 
-* `/opt/sir_model_calculator`
+- Output to terminal
+```shell
+docker run sudoblark/sir-model-calculator terminal 150 4 60 0.43 0.18
+```
 
-Home of the application, and thus place where outputted is stored unless relative/absolute path given
+- Output to terminal with debug output
+```shell
+docker run sudoblark/sir-model-calculator terminal 150 4 60 0.43 0.18 --logLevel DEBUG
+```
 
-* `/output`
+- Output to csv file
+```shell
+docker run sudoblark/sir-model-calculator csv 150 4 60 0.43 0.18 --outputLocation /output/output.csv
+```
 
-Recommended location to output csv/matplotlib data to using volume mounts.
+- Output csv to mounted directory so results are available on host
+```shell
+docker run -v D:\output:/output sudoblark/sir-model-calculator csv 150 4 60 0.43 0.18 --outputLocation /output/output.csv
+```
+
+- Output matplotlib to mounted directory so results are available on host
+```shell
+docker run -v D:\output:/output sudoblark/sir-model-calculator matplotlib 150 4 60 0.43 0.18 --outputLocation /output/output.png
+```
+
+#### Arguments
+
+- `output` determines how to display results
+  - `terminal` will just output to the terminal
+  - `csv` will output to a csv
+  - `matplotlib` will output to a line graph 
+- `population` is the size of our closed population
+- `initial_infection` is the number of infected individuals on day 0
+- `days` is the number of days our simulation should model
+- `transmission_rate` is how infectious infected individual ares
+- `recovery_rate` is how quickly individuals move into recovered state
+- `--outputLocation` defines where to save csv/matplotlib output
+- `--logLevel` allows you to set log level for the application
+
+#### Useful File Locations
+
+* `/output` - Recommended location to store output
+  
+* `/opt/sir_model_calculator` - Root of the application
+
+## Find Us
+
+* [GitHub](https://github.com/Sudoblark/sir_model_calculator)
+
+## Contributing
+
+Please read [the Github readme](https://github.com/Sudoblark/sir_model_calculator) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the 
 [tags on this repository](https://github.com/Sudoblark/sir_model_calculator/tags). 
 
+## Authors
+
+* **Sudoblark** - *Initial work* - [Github](https://github.com/Sudoblark)
+
 ## License
 
-See the [Github repo](https://github.com/Sudoblark/sir_model_calculator) for licensing information.
+Distributed under the GNU General Public License. See [LICENSE.txt](https://github.com/Sudoblark/sir_model_calculator/blob/main/LICENSE.txt) for more info.
