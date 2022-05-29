@@ -4,6 +4,7 @@
 <div align="center">
 
 [![CircleCI](https://circleci.com/gh/Sudoblark/SIR_Model_Calculator/tree/main.svg?style=shield&circle-token=eaba09207fbcf8e33579b24645cc7f08a720497c)](https://circleci.com/gh/Sudoblark/SIR_Model_Calculator/tree/main)
+[![codecov](https://codecov.io/gh/Sudoblark/SIR_Model_Calculator/branch/main/graph/badge.svg?token=4411M8M5UG)](https://codecov.io/gh/Sudoblark/SIR_Model_Calculator)
 
 <h3 align="center">SIR Model Calculator</h3>
 
