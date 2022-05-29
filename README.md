@@ -5,6 +5,7 @@
 
 [![CircleCI](https://circleci.com/gh/Sudoblark/sir_model_calculator/tree/main.svg?style=shield&circle-token=8695f18aa8119eee679698c84ed105f4ddd3c46b)](https://circleci.com/gh/Sudoblark/sir_model_calculator/tree/main)
 [![codecov](https://codecov.io/gh/Sudoblark/SIR_Model_Calculator/branch/main/graph/badge.svg?token=4411M8M5UG)](https://codecov.io/gh/Sudoblark/SIR_Model_Calculator)
+[![Docker Pulls](https://img.shields.io/docker/pulls/sudoblark/sir-model-calculator)](https://hub.docker.com/r/sudoblark/sir-model-calculator)
 
 <h3 align="center">SIR Model Calculator</h3>
 
@@ -50,6 +51,7 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#releases">Releases</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -163,34 +165,12 @@ Now your virtual environment is setup, change to the src directory and run help 
 
 ```
 (venv) C:\temp\sir_model_calculator\src>python -m main -h
-------------------------------------------------
-SIR Model Animation Copyright (C) 2022 Sudoblark
-Run 'main -h' for more information
-------------------------------------------------
-
-usage: main.py [-h] [-l] [--csvFile CSVFILE]
-               {csv,matplotlib,terminal} population initialInfection days transmissionRate recoveryRate
-
-positional arguments:
-  {csv,matplotlib,terminal}
-                        Select output type
-  population            Size of closed population
-  initialInfection      Infected individuals on day 0
-  days                  Number of days our simulation should model
-  transmissionRate      How infectious infected individuals are
-  recoveryRate          How quickly individuals move into recovered state
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -l                    Show licensing information
-  --csvFile CSVFILE     Full path to CSV file to output to
-
 ```
 
 For example, running the below will output a line graph showing SIR data:
 
 ```
-(venv) C:\temp\SIR_Model_Animation\src>python -m main matplotlib 150 4 60 0.12 0.18
+(venv) C:\temp\SIR_Model_Animation\src>python -m main matplotlib 150 4 60 0.43 0.18
 ```
 ![Example SIR data](images/example_data.png "Example SIR data")
 
@@ -200,9 +180,20 @@ For example, running the below will output a line graph showing SIR data:
 <!-- CI -->
 ## CI
 
-CircleCI is used to run unit tests on every commit, and generate code coverage reports.
+CircleCI is used to run unit tests, generate code coverage reports, run pylint and both build and push docker images to dockerhub.
+
+This follows a rather standard workflow of:
+- Commits not on main cause CI to kick in, and to push docker images with a tag of `dev`
+- Commits on main (i.e. an approved PR that is merged) causes CI to ckick in, but pushes docker images with a tag of `qa` rather than `dev`
+- Marking a release in Github triggers CI, but pushes docker images with the following tags:
+  - `latest`
+  - `VERSION` corresponding to the release, e.g. `0.1.0`
+
+
+### Setup
 
 - Code coverage reports are uploaded to codecov, using `CODECOV_TOKEN` for the authorisation token 
+- `DOCKER_USER` and `DOCKER_PASS` env vars are needed for dockerhub authorisation
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -217,6 +208,30 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- Releases -->
+## Releases
+Releases are both distributed as source code and a docker image.
+
+### Docker
+Images are pushed to [dockerhub](https://hub.docker.com/repository/docker/sudoblark/sir-model-calculator) via circleCI.
+
+Both dockerfile and README.md for dockerhub are inside the `docker` folder
+
+#### Manually building and pushing
+To manually build and push run the following commands:
+
+```
+docker build -f .\docker\dockerfile . -t sudoblark/sir-model-calculator:tagname
+# Done so we also push the readme.md
+cd docker 
+docker push sudoblark/sir-model-calculator:tagname
+```
+
+### Source Code
+TODO
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
