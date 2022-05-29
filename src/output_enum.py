@@ -16,6 +16,9 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from enum import Enum
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class OutputEnum(Enum):

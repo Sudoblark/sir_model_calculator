@@ -16,6 +16,9 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def return_header() -> str:

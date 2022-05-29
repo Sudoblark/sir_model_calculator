@@ -32,7 +32,10 @@ docker run sudoblark/sir-model-calculator -h
 docker run sudoblark/sir-model-calculator terminal 150 4 60 0.12 0.18
 ```
 
-- Example CSV output TODO
+- Example CSV output
+```
+docker run -v D:\Github\SIR_Model_Calculator\output:/output sudoblark/sir-model-calculator terminal 150 4 60 0.12 0.18
+```
 
 - Example matplotlib output TODO
 
